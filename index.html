@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My Day!</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <nav class="navbar bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img
+            src="/Images/images.png"
+            alt="Logo"
+            width="62"
+            height="56"
+            class="d-inline-block align-text-top"
+          />
+          My Day!
+          <span
+            class="navbar-text"
+            style="vertical-align: middle; margin-left: 133%; margin-right: 45%"></span>
+            Mrs. Sunita Sharma
+          
+        </a>
+        <ul class="nav justify-content-end">
+          <li class="nav-item">
+            <a class="nav-link" href="websiteList.html">My Websites</a>
+          </li>
+          <button type="button" class="btn btn-link">Log Out</button>
+        </ul>
+          
+      </div>
+    </nav>
+    <div class="card border-info mb-3" style="max-width: 18rem">
+      <div class="card-header">Joke of the Day!</div>
+      <div class="card-body text-info">
+        <p class="card-text" id="joke-contain">          
+        </p>
+      </div>
+    </div>
+    <div class="container" style="width: 50%; align-self: center">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">To Do</th>
+            <th scope="col">Purpose</th>
+            <th scope="col">Time Left</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Daughter's home</td>
+            <td>Aashi's birthday</td>
+            <td class="nextDoseTime"></td>
+            <td class="RemainingDoses" style="text-align: center"></td>
+          </tr>
+          <tr>
+            <td>Family Lunch</td>
+            <td>Anurag and kids coming</td>
+            <td class="nextDoseTime"></td>
+            <td class="RemainingDoses" style="text-align: center"></td>
+          </tr>
+          <tr>
+            <td>Medicine Time</td>
+            <td>Paracetamol</td>
+            <td class="nextDoseTime"></td>
+            <td class="RemainingDoses" style="text-align: center"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <script>
+      var addTimers = document.getElementsByClassName("nextDoseTime");
+      var setInitialTime = new Date().getTime();
+      const offset = 100000;
+      var x = setInterval(function () {
+        var now = new Date().getTime();
+        var distance = setInitialTime + offset + 5 * 1000000 - now;
+        var hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        addTimers[0].innerHTML =
+          hours + "h " + minutes + "m " + seconds + "s Remaining";
+        addTimers[1].innerHTML =
+          hours * 3 + "h " + minutes / 2 + "m " + seconds + "s Remaining";
+        addTimers[2].innerHTML =
+          hours * 5 + "h " + minutes * 2 + "m " + seconds + "s Remaining";
+      }, 1000);
+
+      // var addRemainingDays = document.getElementsByClassName("RemainingDoses");
+      // var dt = new Date();
+      // var currMonthNo = dt.getMonth();
+
+      // var month = [
+      //   "Jan",
+      //   "Feb",
+      //   "Mar",
+      //   "Apr",
+      //   "May",
+      //   "June",
+      //   "July",
+      //   "Aug",
+      //   "Sept",
+      //   "October",
+      //   "Nov",
+      //   "Dec",
+      // ];
+      // document.getElementById("remMonth").innerHTML +=
+      //   "[" + month[currMonthNo] + "]";
+
+      // for (var i = 0; i < addRemainingDays.length; i++) {
+      //   var d = new Date(2022, currMonthNo + 1, 0);
+      //   var monthTotal = d.getDate();
+      //   var currentDate = new Date().getDate();
+      //   console.log(monthTotal - currentDate);
+      //   addRemainingDays[i].innerHTML = monthTotal - currentDate;
+      // }
+
+getDaata();
+async function getDaata()
+{
+   
+    // let city = document.getElementById("city").value;
+    let url = "https://v2.jokeapi.dev/joke/christmas";
+    
+   let res= await fetch(url);
+   
+   let data = await res.json();
+    appeend(data);
+   console.log(data);
+
+}
+
+
+function appeend(data){
+
+  console.log(data);
+  let container=document.getElementById("joke-contain");
+
+  let p1=document.createElement("p");
+  p1.innerText=`☝ ${data.setup}`;
+
+  let p2=document.createElement("p");
+  p2.innerText=` -  ${data.delivery}`;
+
+
+
+  container.append(p1,p2);
+}
+
+
+    </script>
+    
+  </body>
+</html>
+<script src="./fetch.js"></script>
